@@ -3,6 +3,7 @@ import { Component } from 'react';
 import Subject from './components/subject';
 import SideBar from './components/sideBar';
 import Content from './components/content';
+import Control from './components/control';
 
 // funtion type
 // function App() {
@@ -85,6 +86,11 @@ class App extends Component {
           }.bind(this)} 
           data={this.state.contents}
         ></SideBar>
+        <Control onChangeMode={function(_mode) {
+          this.setState({
+            mode: _mode
+          })
+        }.bind(this)}></Control>
         <Content title={_title} desc={_desc}></Content>
       </div>
     );
