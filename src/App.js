@@ -36,7 +36,7 @@ class App extends Component {
     // 컴포넌트 초기화
     // props, state 값 변경 시 해당되는 컴포넌트의 render함수가 호출됨. 즉 화면이 다시 그려짐.
     this.state = { 
-      mode: 'welcome',
+      mode: 'create',
       selected_content_id: 2,
       subject: {title: 'WEB', sub: 'World Wide Web!'},
       welcome: {title: 'Welcome', desc: 'Hello, React!!'},
