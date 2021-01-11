@@ -80,12 +80,27 @@ class App extends Component {
           {id:this.max_content_id, title:_title, desc:_desc}
         );
         this.setState({
-          contents: _contents
+          contents: _contents,
+          mode: 'read',
+          selected_content_id: this.max_content_id
         });
       }.bind(this)}></CreateContent>;
     } else if(this.state.mode === 'update') {
       _content = this.getReadContent();
-      _article = <UpdateContent data={_content} onSubmit={function() {
+      _article = <UpdateContent data={_content} onSubmit={
+        function(_id, _title, _desc) {
+          // 기존 내용 복사
+          var _contents = Array.from(this.state.contents);
+          // id로 추출
+          var data = (_contents.filter(data => data.id === _id))[0];
+          const idx = data.id-1;
+          // 값 수정
+          _contents[idx] = {id: _id, title: _title, desc: _desc};
+          // contents 수정
+          this.setState({
+            contents:_contents, 
+            mode:'read'
+          });
       }.bind(this)}></UpdateContent>;
     }
 
