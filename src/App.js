@@ -38,7 +38,7 @@ class App extends Component {
     // props, state 값 변경 시 해당되는 컴포넌트의 render함수가 호출됨. 즉 화면이 다시 그려짐.
     this.max_content_id = 3;
     this.state = { 
-      mode: 'create',
+      mode: 'welcome',
       selected_content_id: 2,
       subject: {title: 'WEB', sub: 'World Wide Web!'},
       welcome: {title: 'Welcome', desc: 'Hello, React!!'},
@@ -132,9 +132,27 @@ class App extends Component {
           data={this.state.contents}
         ></SideBar>
         <Control onChangeMode={function(_mode) {
-          this.setState({
-            mode: _mode
-          })
+          if(_mode === 'delete') {
+            if(window.confirm('really?')) {
+              // 기존 내용 복사
+              var _contents = Array.from(this.state.contents);
+              // id로 추출
+              var data = (_contents.filter(data => data.id === this.state.selected_content_id))[0];
+              const idx = data.id-1;
+              // 데이터 삭제
+              _contents.splice(idx,1);
+              // contents 수정
+              this.setState({
+                contents:_contents, 
+                mode:'welcome'
+              });
+              alert('deleted.');
+            }
+          } else {
+            this.setState({
+              mode: _mode
+            });
+          }
         }.bind(this)}></Control>
         
         {this.getContent()}
