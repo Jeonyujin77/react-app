@@ -35,6 +35,7 @@ class App extends Component {
     super(props);
     // 컴포넌트 초기화
     // props, state 값 변경 시 해당되는 컴포넌트의 render함수가 호출됨. 즉 화면이 다시 그려짐.
+    this.max_content_id = 3;
     this.state = { 
       mode: 'create',
       selected_content_id: 2,
@@ -68,6 +69,14 @@ class App extends Component {
       _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
     } else if(this.state.mode === 'create') {
       _article = <CreateContent onSubmit={function(_title, _desc) {
+        this.max_content_id++;
+        //push(): origin data 변경됨
+        var _contents = this.state.contents.concat(
+          {id:this.max_content_id, title:_title, desc:_desc}
+        );
+        this.setState({
+          contents: _contents
+        });
         console.log(_title, _desc)
       }.bind(this)}></CreateContent>;
     }
