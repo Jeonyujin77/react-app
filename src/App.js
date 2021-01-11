@@ -1,8 +1,9 @@
 import './App.css';
-import { Component } from 'react';
+import { Component, createContext } from 'react';
 import Subject from './components/subject';
 import SideBar from './components/sideBar';
-import Content from './components/content';
+import ReadContent from './components/readContent';
+import CreateContent from './components/createContent';
 import Control from './components/control';
 
 // funtion type
@@ -48,10 +49,11 @@ class App extends Component {
   }
 
   render() {
-    var _title, _desc = null;
+    var _title, _desc, _article = null;
     if(this.state.mode === 'welcome') {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
     } else if(this.state.mode === 'read') {
       var i = 0;
       while (i < this.state.contents.length) {
@@ -63,7 +65,11 @@ class App extends Component {
         }
         i++;
       }
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
+    } else if(this.state.mode === 'create') {
+      _article = <CreateContent></CreateContent>;
     }
+
     return (
       
       <div className="App">
@@ -91,7 +97,8 @@ class App extends Component {
             mode: _mode
           })
         }.bind(this)}></Control>
-        <Content title={_title} desc={_desc}></Content>
+        
+        {_article}
       </div>
     );
   }
