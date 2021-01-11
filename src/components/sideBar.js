@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 
 class SideBar extends Component {
+  // 이전값과 현재값을 비교하여 변경된 경우에만 렌더링을 한다.
   shouldComponentUpdate(newProps, newState) {
     if(this.props.data === newProps.data) {
       return false;
